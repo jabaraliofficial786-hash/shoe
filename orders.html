@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Details</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Shoe Order Details</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</header>
+
+<section style="padding:40px;">
+    <div id="orderDetails"></div>
+</section>
+
+<script>
+
+let order = JSON.parse(localStorage.getItem("latestOrder"));
+
+let details = document.getElementById("orderDetails");
+
+if(!order){
+    details.innerHTML = "<h2>No Orders Found!</h2>";
+}else{
+
+let products = "";
+
+order.items.forEach(item=>{
+    products += `
+    <div class="card" style="margin-bottom:20px;">
+        <img src="${item.image}" width="150">
+        <h3>${item.name}</h3>
+        <p>${item.price}</p>
+    </div>
+    `;
+});
+
+details.innerHTML = `
+<h2>Customer Details</h2>
+
+<p><b>Name:</b> ${order.name}</p>
+<p><b>Mobile:</b> ${order.mobile}</p>
+<p><b>Address:</b> ${order.address}</p>
+<p><b>Payment:</b> ${order.payment}</p>
+
+<hr><br>
+
+<h2>Ordered Products</h2>
+
+${products}
+
+<br>
+
+<a href="index.html" class="btn">Back to Home</a>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
